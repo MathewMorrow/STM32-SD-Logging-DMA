@@ -26,7 +26,8 @@ Once I have more thuroughly documented and cleaned up the project I will make it
 
 # End Application in use
 Snapshot of raw binary data decoded from my flight controller. I further wrapped this blackbox logging code with raw binary data writes to the SD card and designed a MATLAB script that decodes the raw data. This significantly decreases execution cycles and memory size over writing ASCII-CSV data to the card but adds complexity of post-decoding instead of simply opening the log file in excell. It ended up being easier than I thought and only took an evening of work to update the blackbox wrapper code and MATLAB decode script.  
-![matlab_decode_example](https://github.com/MathewMorrow/STM32-SD-Logging-DMA/assets/50677844/df21cc90-e7eb-4ac5-b20c-87a9f2295d46)
+
+[**Link To MATLAB Blackbox Decode Repo**](https://github.com/MathewMorrow/Ruby-Blackbox-Decode.git)
 
 # FFT Application
 The most important application for this data logging was FFT analysis to see where to place my LPF and Notch filters on my quad.  
