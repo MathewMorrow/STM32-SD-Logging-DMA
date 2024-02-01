@@ -1,9 +1,11 @@
 # STM32-SD-Logging-DMA
 Non-blocking FATFS microSD datalogging at 2.5MBps using an STM32 SDIO in DMA mode
 
-This board was designed as a test bench for ultra fast blackbox data recording for my own quadcopter FPV flight controller and firmware.
+This board was designed as a test bench for ultra fast non-blocking blackbox data recording for my own fully self built quadcopter FPV flight hardware and firmware.
 
-The goal was to validate the SDIO+DMA peripherals and customer FATFS firmware for non-blocking writes of +256 BYTES every 313 micr-seconds (3.2kHz PID loops)
+The goal was to validate the SDIO+DMA peripherals and custom FATFS firmware for non-blocking writes of +256 BYTES every 313 micro-seconds (3.2kHz PID loops)
+
+Using the built in bench-test function I was able to achieve up to 2.5MBps writes speeds using a cheap microSDHC class-6 card.
 
 ![SDIO_Dev_Board_ISOMET](https://github.com/MathewMorrow/STM32-SD-Logging-DMA/assets/50677844/8266ebc9-88af-463e-90df-691020a96654)
 
