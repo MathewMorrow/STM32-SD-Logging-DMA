@@ -1,0 +1,5 @@
+
+*.cyclo
+
+# Ignore build artifacts
+/Debug/
