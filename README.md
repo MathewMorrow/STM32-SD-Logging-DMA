@@ -8,9 +8,9 @@ The goal was to validate the SDIO+DMA peripherals and custom FATFS firmware for 
 Using the built in "blackboxSDBenchmark()" function I was able to achieve up to 2.5MBps writes speeds using a cheap microSDHC class-6 card.
 
 **Link to my FPV drone hardware and Firmware project**  
-**THIS REPO IS PRIVATE AT THIS TIME**  
+__**THIS REPO IS PRIVATE AT THIS TIME**__  
 [**RubyFlight Project**](https://github.com/MathewMorrow/rubyflight.git/)  
-It represent 500+ hours of my personaly time outside of my day job as a Sr. Electrical Eng.  
+This hardware+firmware project represent 500+ hours of my personaly time outside of my day job as a Sr. Electrical Eng.  
 Once I have more thuroughly documented and cleaned up the project I will make it public.
 
 # Hardware Design
