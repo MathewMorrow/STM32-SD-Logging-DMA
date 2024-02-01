@@ -25,5 +25,6 @@ Snapshot of raw binary data decoded from my flight controller. I further wrapped
 # FFT Application
 The most important application for this data logging was FFT analysis to see where to place my LPF and Notch filters on my quad.  
 Here is a plot of the raw gyro data coming out of the chip and my filtered data going into the PIDs.  
+**Anything above ~100Hz needs filtering out and below 80Hz is what the drone needds to control**
 ![FFT_Example](https://github.com/MathewMorrow/STM32-SD-Logging-DMA/assets/50677844/391683b6-83b7-4e12-879b-0fdffa7c5188)
 
