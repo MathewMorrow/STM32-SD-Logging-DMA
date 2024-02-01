@@ -1,0 +1,8 @@
+../Core/Src/cpu_load.c:26:6:cpuLoad_Init	0	static
+../Core/Src/cpu_load.c:40:6:cpuLoad_Start	8	static
+../Core/Src/cpu_load.c:48:6:cpuLoad_End	8	static
+../Core/Src/cpu_load.c:72:6:cpuLoad_Process	8	static
+../Core/Src/cpu_load.c:93:6:cpuLoad_Reset	8	static
+../Core/Src/cpu_load.c:103:9:cpuLoad_GetPercentLoad	0	static
+../Core/Src/cpu_load.c:108:10:cpuLoad_GetMaxLoopTime	0	static
+../Core/Src/cpu_load.c:113:10:cpuLoad_GetMinLoopTime	0	static

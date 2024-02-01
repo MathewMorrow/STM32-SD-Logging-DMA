@@ -1,0 +1,7 @@
+../Core/Src/VCP.c:21:9:vcp_peek	2
+../Core/Src/VCP.c:27:9:vcp_Read	3
+../Core/Src/VCP.c:55:6:vcp_RxDataHandler	4
+../Core/Src/VCP.c:79:6:vcp_DefaultFramingErrorHandler	1
+../Core/Src/VCP.c:81:6:vcp_DefaultOverrunErrorHandler	1
+../Core/Src/VCP.c:86:9:vcp_getRxCount	1
+../Core/Src/VCP.c:94:13:vcp_TransmitCplt	1

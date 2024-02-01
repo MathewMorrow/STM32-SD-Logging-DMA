@@ -1,0 +1,3 @@
+../Core/Src/console.c:23:6:vcp_TransmitCplt	1
+../Core/Src/console.c:28:6:printCLI	25
+../Core/Src/console.c:241:6:streamData	4
