@@ -55,7 +55,7 @@ Snapshot of raw binary data decoded from my flight controller. I further wrapped
 
 [**Link To MATLAB Blackbox Decode Repo**](https://github.com/MathewMorrow/Ruby-Blackbox-Decode.git)
 
-![matlab_decode_example](https://github.com/MathewMorrow/STM32-SD-Logging-DMA/assets/50677844/5cdc683e-28ab-40dc-8775-f0ccb034343a)
+![matlab_decode_example2](https://github.com/MathewMorrow/STM32-SD-Logging-DMA/assets/50677844/9c1b0ae0-e6b2-41d2-a8a3-5a56bc7664da)
 
 # FFT Application
 The most important application for this data logging was FFT analysis to see where to place my LPF and Notch filters on my drone.  
