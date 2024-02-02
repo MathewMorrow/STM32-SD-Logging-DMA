@@ -9,7 +9,7 @@ Using the built in "blackboxSDBenchmark()" function I was able to achieve up to 
 
 **Link to my FPV drone hardware and Firmware project - THIS REPO IS PRIVATE AT THIS TIME**  
 [**RubyFlight Project**](https://github.com/MathewMorrow/rubyflight.git/)  
-This hardware+firmware project represent 500+ hours of my personal time outside of my day job as a Sr. Electrical Eng.  
+This hardware+firmware project represent 500+ hours of my time outside of my day job as a Sr. Electrical Eng.  
 Once I have more thoroughly documented and cleaned up the project I will make it public.
 
 # How the code works  
@@ -37,7 +37,7 @@ It's important to first know that all microSD cards can and will block new data 
     * I added a fastWrite flag that avoids wait states in the FATFS library only for the full cluster data writes.
     * The fastWrite flag is set just before and reset just after a DMA writeSector() is triggered.
 * When the file is closed, it is likely the current buffer is only partially filled.
-    * At this point fast writes are not critical and the partially filled buffer is written to the file before closing and housekeeping with the standard FATFS fclose() function.
+    * At this point fast writes are not critical and the partially filled buffer is written to the file, with the fastWrite flag not set, before closing and housekeeping with the standard FATFS fclose() function.
 
 # Hardware Design
 ![SDIO_Dev_Board_ISOMET](https://github.com/MathewMorrow/STM32-SD-Logging-DMA/assets/50677844/8266ebc9-88af-463e-90df-691020a96654)
@@ -58,8 +58,8 @@ Snapshot of raw binary data decoded from my flight controller. I further wrapped
 ![matlab_decode_example](https://github.com/MathewMorrow/STM32-SD-Logging-DMA/assets/50677844/5cdc683e-28ab-40dc-8775-f0ccb034343a)
 
 # FFT Application
-The most important application for this data logging was FFT analysis to see where to place my LPF and Notch filters on my quad.  
-Here is a plot of the raw gyro data coming out of the chip and my filtered data going into the PIDs.  
+The most important application for this data logging was FFT analysis to see where to place my LPF and Notch filters on my drone.  
+Below is an FFT plot of the raw gyro data from a BMI270 chip and my filtered data going into the PIDs.  
 **Anything above ~100Hz needs filtering out and below 80Hz is what the drone needs to control**
 ![FFT_Example](https://github.com/MathewMorrow/STM32-SD-Logging-DMA/assets/50677844/391683b6-83b7-4e12-879b-0fdffa7c5188)
 
