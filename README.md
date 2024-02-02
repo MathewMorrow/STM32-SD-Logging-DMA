@@ -1,5 +1,5 @@
 # STM32-SD-Logging-DMA
-Non-blocking FATFS microSD datalogging at 2.5MBps using an STM32 SDIO in DMA mode
+Non-blocking FATFS microSD datalogging at 2.5MBps using an STM32 SDIO in DMA mode then
 
 This board was designed as a test bench for ultra fast non-blocking blackbox data recording for my own fully self built quadcopter FPV flight hardware and firmware.
 
@@ -10,31 +10,30 @@ Using the built in "blackboxSDBenchmark()" function I was able to achieve up to 
 **Link to my FPV drone hardware and Firmware project - THIS REPO IS PRIVATE AT THIS TIME**  
 [**RubyFlight Project**](https://github.com/MathewMorrow/rubyflight.git/)  
 This hardware+firmware project represent 500+ hours of my personal time outside of my day job as a Sr. Electrical Eng.  
-Once I have more thuroughly documented and cleaned up the project I will make it public.
+Once I have more thoroughly documented and cleaned up the project I will make it public.
 
 # How the code works  
 ## Background preamble
 It's important to first know that all microSD cards can and will block new data read/writes for up to **200mS** whenever they need to perform internal housekeeping such as wear leveling or cluster boundary writes. If you are performing "fast" writes to a card, these blocking calls will occure every few seconds depending on the SD card. For time critical applications, such as a flight controller running 6 PID loops every 300 micro-seconds, this is a non-starter. This also means that simply adding a DMA channel to handle the SDIO peripheral writes to the card is not going to avoid these delays. In fact the standard FATFS library always performs a blocking call, even with DMA enabled, to ensure data is properly written to the card and the MCUs FATFS file-pointers etc. are updated correctly. The FATFS standard library is designed for RTOS systems creating a non-blocking non-RTOS file system is non-trivial.  
 ## Keys to success  
-* Start with good hardware. Grabage in = grabage out. Amazon is filled with fake SD cards. Use a microSDHC of class 6 or higher.
+* Start with good hardware. Garbage in = garbage out. Amazon is filled with fake SD cards. Use a microSDHC of class 6 or higher.
 * Reformat the card with a cluster size of 4096. This is the buffer size used in the code. More on this later.
     * I also played around with reading the cluster size from the card at startup and dynamically changing the buffer size.
 * Use the SDIO hardware peripheral. While SPI is 'supported' by the microSD standard it's an afterthought for manufacturers and a fraction of the speed of SDIO.
-* Link a DMA write channel to the SDIO peripheral.
 * For maximum write speeds it is critical to write a full cluster at a time as well as on cluster boundaries. If data is partially written across a cluster boundary, the card will need to perform a cluster erase and rewrite the next time the cluster is written to.
-* Ensure the file has a contigouos amount of space pre-allocated. Otherwise the card will have to halt and find a new location on the disk to write data.
+* Ensure the file has a contiguous amount of space pre-allocated. Otherwise the card will have to halt and find a new location on the disk to write data.
 ## The code  
 * Create a new file in the root directory. Read through existing file indexes and increment number in file name.
 * Pre-allocate a contiguous amount of space in the file using the FATFS standard function f_expand.
-   * Optionaly check if the file is contiguous - this is slow and is always true.
-* Continously buffer data into two pingpong buffers that are the size of a full cluster (4096 bytes).
+   * Optional check if the file is contiguous - this is slow and is always true.
+* Continuously buffer data into two pingpong buffers that are the size of a full cluster (4096 bytes).
 * Once a buffer is full, set a blackboxDataPending flag and pingpong to the other buffer.
-    * First check that the DMA is not actively writting the other buffer, otherwise drop the packet
+    * First check that the DMA is not actively writing the other buffer, otherwise drop the packet
     * If the other buffer is full and there is not enough space to buffer new data on the current buffer, drop the packet.
-    * These check and packet drops never get close to occuring with 4096 buffer sizes but good edge case handling.
+    * These check and packet drops never get close to occurring with 4096 buffer sizes but good edge case handling.
 * Every loop check if the blackboxDataPending is set. If so, trigger the DMA to send the cluster sized buffer.
 * So far everything is easy. The hard part is modifying the standard FATFS library with a "fastWrite" flag.
-    * Removing blocking calls in the FATFS library altogether will cause hard faults for other standar functions like card initialization fopen, fclose etc.
+    * Removing blocking calls in the FATFS library altogether will cause hard faults for other standard functions like card initialization fopen, fclose etc.
     * I added a fastWrite flag that avoids wait states only for the cluster data writes.
     * The fastWrite flag is set just before and reset just after the DMA triggers a DMA writeSector() call.
 * When the file is closed, it is likely a buffer is only partially filled.
