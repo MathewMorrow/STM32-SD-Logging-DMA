@@ -29,14 +29,14 @@ It's important to first know that all microSD cards can and will block new data 
 * Continuously buffer data into two pingpong buffers that are the size of a full cluster (4096 bytes).
 * Once a buffer is full, set a blackboxDataPending flag and pingpong to the other buffer.
     * First check that the DMA is not actively writing the other buffer, otherwise drop the packet
-    * If the other buffer is full and there is not enough space to buffer new data on the current buffer, drop the packet.
-    * These check and packet drops never get close to occurring with 4096 buffer sizes but good edge case handling.
+    * If the other buffer is full and there is not enough space to buffer new data on the current buffer drop the packet.
+    * These packet drops never get close to occurring with 4096 buffer sizes but good edge case handling.
 * Every loop check if the blackboxDataPending is set. If so, trigger the DMA to send the cluster sized buffer.
 * So far everything is easy. The hard part is modifying the standard FATFS library with a "fastWrite" flag.
-    * Removing blocking calls in the FATFS library altogether will cause hard faults for other standard functions like card initialization fopen, fclose etc.
-    * I added a fastWrite flag that avoids wait states only for the cluster data writes.
-    * The fastWrite flag is set just before and reset just after the DMA triggers a DMA writeSector() call.
-* When the file is closed, it is likely a buffer is only partially filled.
+    * Removing blocking calls in the FATFS library altogether will cause hard faults for other standard functions like card initialization, fopen, fclose etc.
+    * I added a fastWrite flag that avoids wait states in the FATFS library only for the full cluster data writes.
+    * The fastWrite flag is set just before and reset just after a DMA writeSector() is triggered.
+* When the file is closed, it is likely the current buffer is only partially filled.
     * At this point fast writes are not critical and the partially filled buffer is written to the file before closing and housekeeping with the standard FATFS fclose() function.
 
 # Hardware Design
