@@ -10,7 +10,10 @@ Using the built in "blackboxSDBenchmark()" function I was able to achieve up to 
 **Link to my FPV drone hardware and Firmware project - THIS REPO IS PRIVATE AT THIS TIME**  
 [**RubyFlight Project**](https://github.com/MathewMorrow/rubyflight.git/)  
 This hardware+firmware project represent 500+ hours of my time outside of my day job as a Sr. Electrical Eng.  
-Once I have more thoroughly documented and cleaned up the project I will make it public.
+Once I have more thoroughly documented and cleaned up the project I will make it public.  
+
+**Link to my MATLAB project for decoding of raw binary log files**  
+[**Link To MATLAB Blackbox Decode Repo**](https://github.com/MathewMorrow/Ruby-Blackbox-Decode.git)
 
 # How the code works  
 ## Background preamble
